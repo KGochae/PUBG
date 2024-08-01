@@ -2,12 +2,12 @@
 PUBG BattleGround 데이터를 갖고 지표를 분석하는 중입니다.
 
 
-# Content
+## Content
 PUBG 배틀그라운드의 패치내용에 따라 무기별로 여러 지표들을 확인할 수 있는 대시보드를 구성해보려고 합니다! (진행중....)
 
 
-# Sub_Content
-## Wakgood battleground TMI 지표
+## Sub_Content
+### Wakgood battleground TMI 지표
 * (배틀로얄 FPS 장르) 배틀그라운드 파트너 게임Bj이신 왁굳님의 데이터를 한달간 수집 하면서 매치리포트에서는 볼 수 없는 말그대로 TMI 지표를 분석해보았습니다.😀
 >  Code 👉🏻 wak_battleground.ipynb
 
@@ -19,6 +19,6 @@ PUBG 배틀그라운드의 패치내용에 따라 무기별로 여러 지표들�
 > 하지만, "점수"라는 단어는 통상적으로 높을 수 록 좋다고 판단하는 경우가 대부분이기 때문에, 표현에 있어서 충분히 헷갈릴 수 있는 부분이었습니다.🫨
 
 * 추가적으로 설명을 더 하거나, 아예 역으로 환산해서 시각화 하는게 맞았는데 말이죠 !! 
-* 실제 왁굳님의 리액션은 썸네일 클릭시 재생됩니다😂
-  
+* 실제 왁굳님의 리액션은 썸네일 클릭시 재생됩니다😂 (현재 자료에는 피드백에 따라 일부 수정된 부분이 있습니다)
+   
 [![Video Label](http://img.youtube.com/vi/66PQJ0Jol9A/0.jpg)](https://youtu.be/66PQJ0Jol9A)
