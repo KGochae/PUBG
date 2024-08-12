@@ -1,12 +1,24 @@
-# PUBG
-PUBG BattleGround 데이터를 갖고 지표를 분석하는 중입니다.
+# BattleGround
+⚙️ ... PUBG BattleGround 데이터를 갖고 지표를 분석하는 중입니다... ⚙️ 
 
-## Sub_Content
+## 디렉토리
+```
+├── 📁 preprocess --------------- # pubg API, 데이터 탐색 및 전처리 (빅쿼리, Colab) 
+| └── 📁 SQL_BigQuery
+| └── 📁 Python_Colab 
+├── 📁 summary ------------------ # 프로젝트를 정리한 자료입니다.
+├── .README.md
+└── pubg_main.py ----- # streamlit dashboard
+```
+
+
+## Content ①
 ### Wakgood battleground TMI 지표
-* (배틀로얄 FPS 장르) 배틀그라운드 파트너 게임Bj이신 왁굳님의 데이터를 한달간 수집 하면서 매치리포트에서는 볼 수 없는 말그대로 TMI 지표를 분석해보았습니다.😀
->  Code 👉🏻 wak_battleground.ipynb
-
-### Reaction
+* (배틀로얄 FPS 장르) 배틀그라운드 파트너 게임Bj이신 왁굳님의 데이터를 한달간 수집 하면서 매치리포트에서는 볼 수 없는 TMI 지표를 분석해보았습니다.😀
+* 크게 "실력" 지표와 "운" 지표로 나뉘어집니다.
+* 요약결과는 📁summary 에서 보실 수 있습니다.
+  
+### Reaction🫨
 * 실제 왁굳님에게 해당 분석을 보여드렸는데요! 일단, 재밌게 봐주셔서 너무 감사하고 뿌듯했습니다. (많이 맞은것도 있지만요😂)
 * 무엇보다 지표를 설명하는데 있어서 애매한 부분이 많았다는 피드백을 받을 수 있었습니다. 너무 요약하려 하다보니 헷갈릴만한 부분들을 고려하지 못했던 것 같습니다.
 
@@ -20,6 +32,6 @@ PUBG BattleGround 데이터를 갖고 지표를 분석하는 중입니다.
 
 
 
-## Content
+## Content ②
 > PUBG 배틀그라운드의 패치내용에 따라 무기별로 여러 지표들을 확인할 수 있는 대시보드를 구성해보려고 합니다! (진행중....)
 
