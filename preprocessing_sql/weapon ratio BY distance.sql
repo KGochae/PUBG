@@ -1,4 +1,9 @@
--- TODAY QUERY. Shot Ratio by Weapon, Distance
+-- TODAY QUERY. 난사하는 상황에서의 Shot Ratio by Weapon, Distance
+-- 난사의 기준? 5초단위로 남겨지는 데이터에서 10발이상 사용한 경우 "난사"라는 자체가 AR,SMG 같은 돌격소총에게 유의미한 지표이므로 SR 같은 장거리 총의 경우 한계가있다.
+-- 데이터가 남겨지는 규칙: 유저가 hit 했을 경우에만 Distance가 남는다. 
+-- shot을 했지만 적을 맞추지 못한경우 정확히 누굴 향해 공격했는지 알 수 없고 Distance가 남지 않음 
+-- 그러므로 5초단위로 SHOT, HIT 테이블을 따로 만들고, 적을 맞추지 못했지만 5초 안에 적에게 피해를 입혔다면 같은 적을 공격했다고 판단
+
 
 -- WeaponID 통일 
 with dmglog as(
@@ -87,7 +92,7 @@ SELECT group_5_sec
       , damageCauserName AS itemId
       , victim_name
       , COUNT(*) AS hit
-      , SUM(HeadShot) HeadShot , SUM(ArmShot) ArmShot, SUM(TorsoShot) TorsoShot, SUM(LegShot) LegShot, SUM(PelvisShot) PelvisShot
+      , SUM(HeadShot) HeadShot, SUM(ArmShot) ArmShot, SUM(TorsoShot) TorsoShot, SUM(LegShot) LegShot, SUM(PelvisShot) PelvisShot
       , SUM(damage) as damage
       , AVG(distance) as distance
 FROM (SELECT  matchId
@@ -98,7 +103,8 @@ FROM (SELECT  matchId
     , damageCauserName
     , victim_name
     , distance
-    , if(damageReason = 'HeadShot',1,0) as HeadShot
+    # Damage 부위 dummy
+    , if(damageReason = 'HeadShot',1,0) as HeadShot 
     , if(damageReason = 'ArmShot',1,0) as ArmShot
     , if(damageReason = 'TorsoShot',1,0) as TorsoShot
     , if(damageReason = 'LegShot',1,0) as LegShot
@@ -126,10 +132,26 @@ SHOT AS(
         GROUP BY attacker_name, group_5_sec, itemId
 )
 
--- 
-SELECT S.attacker_name, S.group_5_sec, S.itemId, S.shot
+
+# 난사하는 상황에서 무기, 거리별 정확도 table
+SELECT itemId 
+    , distance_category
+    , AVG(ratio) * 100 as avg_ratio
+FROM (SELECT S.*
     , H.victim_name, H.hit, H.headShot, H.ArmShot, H.TorsoShot, H.LegShot, H.PelvisShot, H.damage, H.distance
+    , CASE
+        WHEN distance >= 0 AND distance < 10 THEN '0-10m'
+        WHEN distance >= 10 AND distance < 20 THEN '10-20m'
+        WHEN distance >= 20 AND distance < 30 THEN '20-30m'
+        WHEN distance >= 30 AND distance < 40 THEN '30-40m'
+        WHEN distance >= 40 THEN '40m+'
+        ELSE 'Unknown' END AS distance_category
+    , H.hit / S.shot as ratio
 FROM SHOT S
   LEFT JOIN HIT H ON S.group_5_sec = H.group_5_sec 
                   AND S.attacker_name = H.attacker_name
                   AND S.itemId = H.itemId
+WHERE SHOT >= 10 AND HIT > 0) A
+GROUP BY itemId, distance_category
+ORDER BY itemId, distance_category
+
